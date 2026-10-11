@@ -1,0 +1,178 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>About - SafeSynth-FR</title>
+  <link rel="stylesheet" href="/static/style.css">
+</head>
+<body class="about-page">
+  <!-- Fixed Navbar -->
+  <nav class="navbar">
+    <a href="/dashboard" class="nav-brand">
+      <div class="nav-brand-icon">🔬</div>
+      SafeSynth-FR
+    </a>
+    
+    <ul class="nav-links">
+      <li><a href="/dashboard" class="nav-link">Dashboard</a></li>
+      <li><a href="/face-recognition" class="nav-link">Upload</a></li>
+      <li><a href="/live-recognition" class="nav-link">Live Camera</a></li>
+      <li><a href="/about" class="nav-link active">About</a></li>
+    </ul>
+
+    <div class="navbar-user">
+      <div class="user-name">👋 Hello,  {{ name }}</div>
+      <a href="/logout" class="logout-btn">Logout</a>
+    </div>
+  </nav>
+
+  <!-- Main Container -->
+  <div class="main-container">
+    <!-- Page Header -->
+    <div class="page-header">
+      <h1 class="page-header-title">About SafeSynth-FR</h1>
+      <p class="page-header-subtitle">Privacy-first facial recognition with synthetic data</p>
+    </div>
+
+    <!-- Page Content -->
+    <div class="page-content" style="max-width: 1200px; margin: 0 auto;">
+      <!-- Core Information Cards -->
+      <div class="about-cards-grid">
+        <div class="about-card">
+          <h3>🛡️ What is SafeSynth-FR?</h3>
+          <p>A privacy-preserving face recognition system trained entirely on synthetic facial data. No real biometric information is processed or stored.</p>
+        </div>
+
+        <div class="about-card">
+          <h3>🔒 Privacy with Synthetic Data</h3>
+          <p>By using synthetic faces, we ensure zero exposure of real biometric data. The model learns facial patterns without compromising individual privacy.</p>
+        </div>
+
+        <div class="about-card">
+          <h3>🧠 Model & Pipeline</h3>
+          <p>Powered by MobileNetV2 deep learning architecture. Optimized for real-time inference on modern devices while maintaining high accuracy.</p>
+        </div>
+
+        <div class="about-card">
+          <h3>🧪 Robustness Testing</h3>
+          <p>Tested across 30 identities with variations in lighting conditions, viewing angles, and facial masks to ensure reliable performance.</p>
+        </div>
+
+        <div class="about-card">
+          <h3>📈 Key Results</h3>
+          <p>High accuracy on masked and unmasked faces. Robust recognition even under challenging environmental conditions and extreme angles.</p>
+        </div>
+
+        <div class="about-card">
+          <h3>🚀 Future Work</h3>
+          <p>Expanding to additional identities, improving real-time performance, and exploring federated learning for edge deployment.</p>
+        </div>
+      </div>
+
+      <!-- Technical Details Section -->
+      <div style="margin-top: var(--spacing-2xl);">
+        <h2 style="font-size: 18px; font-weight: 800; margin-bottom: var(--spacing-lg); color: var(--text-primary);">Technical Details</h2>
+        
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: var(--spacing-lg);">
+          <div class="card">
+            <h3 style="font-size: 14px; font-weight: 700; color: var(--primary-color); margin-bottom: var(--spacing-md);">Architecture</h3>
+            <ul style="list-style: none; padding: 0; font-size: 12px; color: var(--text-secondary);">
+              <li style="margin-bottom: var(--spacing-sm);">🔹 MobileNetV2 backbone</li>
+              <li style="margin-bottom: var(--spacing-sm);">🔹 224x224 input resolution</li>
+              <li style="margin-bottom: var(--spacing-sm);">🔹 30 identity classes</li>
+              <li>🔹 Softmax + threshold decision</li>
+            </ul>
+          </div>
+
+          <div class="card">
+            <h3 style="font-size: 14px; font-weight: 700; color: var(--primary-color); margin-bottom: var(--spacing-md);">Training Data</h3>
+            <ul style="list-style: none; padding: 0; font-size: 12px; color: var(--text-secondary);">
+              <li style="margin-bottom: var(--spacing-sm);">🔹 Synthetic face generation</li>
+              <li style="margin-bottom: var(--spacing-sm);">🔹 Data augmentation applied</li>
+              <li style="margin-bottom: var(--spacing-sm);">🔹 Masked variants included</li>
+              <li>🔹 Split: 70/15/15 (train/val/test)</li>
+            </ul>
+          </div>
+
+          <div class="card">
+            <h3 style="font-size: 14px; font-weight: 700; color: var(--primary-color); margin-bottom: var(--spacing-md);">Performance</h3>
+            <ul style="list-style: none; padding: 0; font-size: 12px; color: var(--text-secondary);">
+              <li style="margin-bottom: var(--spacing-sm);">🔹 High accuracy rates</li>
+              <li style="margin-bottom: var(--spacing-sm);">🔹 Real-time inference</li>
+              <li style="margin-bottom: var(--spacing-sm);">🔹 Mask-robust recognition</li>
+              <li>🔹 Cross-lighting robustness</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <!-- Features Section -->
+      <div style="margin-top: var(--spacing-2xl);">
+        <h2 style="font-size: 18px; font-weight: 800; margin-bottom: var(--spacing-lg); color: var(--text-primary);">Key Features</h2>
+        
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: var(--spacing-lg);">
+          <div style="background: linear-gradient(135deg, rgba(99, 102, 241, 0.05), rgba(59, 130, 246, 0.05)); padding: var(--spacing-lg); border-radius: var(--radius-lg); border-left: 4px solid var(--accent-color);">
+            <h4 style="font-size: 14px; font-weight: 700; color: var(--primary-color); margin-bottom: var(--spacing-sm);">Upload Recognition</h4>
+            <p style="font-size: 12px; color: var(--text-secondary); margin: 0;">Batch upload images for quick recognition with confidence scores.</p>
+          </div>
+
+          <div style="background: linear-gradient(135deg, rgba(99, 102, 241, 0.05), rgba(59, 130, 246, 0.05)); padding: var(--spacing-lg); border-radius: var(--radius-lg); border-left: 4px solid var(--accent-color);">
+            <h4 style="font-size: 14px; font-weight: 700; color: var(--primary-color); margin-bottom: var(--spacing-sm);">Live Webcam</h4>
+            <p style="font-size: 12px; color: var(--text-secondary); margin: 0;">Real-time recognition directly from device camera.</p>
+          </div>
+
+          <div style="background: linear-gradient(135deg, rgba(99, 102, 241, 0.05), rgba(59, 130, 246, 0.05)); padding: var(--spacing-lg); border-radius: var(--radius-lg); border-left: 4px solid var(--accent-color);">
+            <h4 style="font-size: 14px; font-weight: 700; color: var(--primary-color); margin-bottom: var(--spacing-sm);">Confidence Scoring</h4>
+            <p style="font-size: 12px; color: var(--text-secondary); margin: 0;">Quantified confidence metrics for each prediction result.</p>
+          </div>
+
+          <div style="background: linear-gradient(135deg, rgba(99, 102, 241, 0.05), rgba(59, 130, 246, 0.05)); padding: var(--spacing-lg); border-radius: var(--radius-lg); border-left: 4px solid var(--accent-color);">
+            <h4 style="font-size: 14px; font-weight: 700; color: var(--primary-color); margin-bottom: var(--spacing-sm);">Detection Status</h4>
+            <p style="font-size: 12px; color: var(--text-secondary); margin: 0;">Reports face detection method (detected or fallback).</p>
+          </div>
+
+          <div style="background: linear-gradient(135deg, rgba(99, 102, 241, 0.05), rgba(59, 130, 246, 0.05)); padding: var(--spacing-lg); border-radius: var(--radius-lg); border-left: 4px solid var(--accent-color);">
+            <h4 style="font-size: 14px; font-weight: 700; color: var(--primary-color); margin-bottom: var(--spacing-sm);">Unknown Detection</h4>
+            <p style="font-size: 12px; color: var(--text-secondary); margin: 0;">Identifies faces that don't match trained identities.</p>
+          </div>
+
+          <div style="background: linear-gradient(135deg, rgba(99, 102, 241, 0.05), rgba(59, 130, 246, 0.05)); padding: var(--spacing-lg); border-radius: var(--radius-lg); border-left: 4px solid var(--accent-color);">
+            <h4 style="font-size: 14px; font-weight: 700; color: var(--primary-color); margin-bottom: var(--spacing-sm);">Privacy Forward</h4>
+            <p style="font-size: 12px; color: var(--text-secondary); margin: 0;">No raw biometric data stored or logged.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- FAQ Section -->
+      <div style="margin-top: var(--spacing-2xl); margin-bottom: var(--spacing-2xl);">
+        <h2 style="font-size: 18px; font-weight: 800; margin-bottom: var(--spacing-lg); color: var(--text-primary);">FAQ</h2>
+        
+        <div style="display: flex; flex-direction: column; gap: var(--spacing-lg);">
+          <div class="card">
+            <h4 style="font-size: 14px; font-weight: 700; color: var(--primary-color); margin-bottom: var(--spacing-sm);">Q: Is my data stored?</h4>
+            <p style="font-size: 12px; color: var(--text-secondary); margin: 0;">A: No. SafeSynth-FR processes images in real-time without storing raw biometric data. Only model predictions are logged.</p>
+          </div>
+
+          <div class="card">
+            <h4 style="font-size: 14px; font-weight: 700; color: var(--primary-color); margin-bottom: var(--spacing-sm);">Q: How accurate is the model?</h4>
+            <p style="font-size: 12px; color: var(--text-secondary); margin: 0;">A: The model achieves high accuracy across 30 identities. Performance varies based on image quality, lighting, and pose angle.</p>
+          </div>
+
+          <div class="card">
+            <h4 style="font-size: 14px; font-weight: 700; color: var(--primary-color); margin-bottom: var(--spacing-sm);">Q: Does it work with masks?</h4>
+            <p style="font-size: 12px; color: var(--text-secondary); margin: 0;">A: Yes! The model was trained with masked face variations and handles partial facial occlusion robustly.</p>
+          </div>
+
+          <div class="card">
+            <h4 style="font-size: 14px; font-weight: 700; color: var(--primary-color); margin-bottom: var(--spacing-sm);">Q: What if a face isn't recognized?</h4>
+            <p style="font-size: 12px; color: var(--text-secondary); margin: 0;">A: Unknown faces are labeled as "Unknown Person" with a low confidence score, indicating the face doesn't match any trained identity.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="/static/app.js"></script>
+</body>
+</html>
