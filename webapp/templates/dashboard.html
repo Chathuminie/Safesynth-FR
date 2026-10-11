@@ -1,0 +1,106 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dashboard - SafeSynth-FR</title>
+  <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+  <!-- Fixed Navbar -->
+  <nav class="navbar">
+    <a href="/dashboard" class="nav-brand">
+      <div class="nav-brand-icon">🔬</div>
+      SafeSynth-FR
+    </a>
+    
+    <ul class="nav-links">
+      <li><a href="/dashboard" class="nav-link active">Dashboard</a></li>
+      <li><a href="/face-recognition" class="nav-link">Upload</a></li>
+      <li><a href="/live-recognition" class="nav-link">Live Camera</a></li>
+      <li><a href="/about" class="nav-link">About</a></li>
+    </ul>
+
+    <div class="navbar-user">
+      <div class="user-name">👋 Hello,  {{ name }}</div>
+      <a href="/logout" class="logout-btn">Logout</a>
+    </div>
+  </nav>
+
+  <!-- Main Container --
+  <div class="main-container">
+    <!-- Page Header -->
+    <div class="page-header">
+      <h1 class="page-header-title">Welcome to SafeSynth-FR</h1>
+      <p class="page-header-subtitle">Privacy-preserving face recognition powered by synthetic data</p>
+    </div>
+
+    <!-- Page Content -->
+    <div class="page-content">
+      <!-- Quick Action Cards -->
+      <div style="margin-bottom: var(--spacing-2xl);">
+        <h2 style="font-size: 18px; font-weight: 800; margin-bottom: var(--spacing-lg); color: var(--text-primary);">Quick Actions</h2>
+        <div class="dashboard-grid">
+          <a href="/face-recognition" class="action-card">
+            <div class="action-card-icon">📸</div>
+            <h3 class="action-card-title">Upload Recognition</h3>
+            <p class="action-card-desc">Upload a photo and identify the person</p>
+          </a>
+          
+          <a href="/live-recognition" class="action-card">
+            <div class="action-card-icon">🎥</div>
+            <h3 class="action-card-title">Live Webcam</h3>
+            <p class="action-card-desc">Real-time face recognition from your camera</p>
+          </a>
+          
+          <a href="/about" class="action-card">
+            <div class="action-card-icon">ℹ️</div>
+            <h3 class="action-card-title">About</h3>
+            <p class="action-card-desc">Learn about our technology and approach</p>
+          </a>
+        </div>
+      </div>
+
+      <!-- System Highlights -->
+      <div>
+        <h2 style="font-size: 18px; font-weight: 800; margin-bottom: var(--spacing-lg); color: var(--text-primary);">System Highlights</h2>
+        <div class="info-cards">
+          <div class="info-card">
+            <div class="info-card-header">
+              <div class="info-card-icon">🛡️</div>
+              <h3 class="info-card-title">Privacy First</h3>
+            </div>
+            <p class="info-card-body">Built with synthetic data - no real face images stored or processed.</p>
+          </div>
+
+          <div class="info-card">
+            <div class="info-card-header">
+              <div class="info-card-icon">🚀</div>
+              <h3 class="info-card-title">Fast & Accurate</h3>
+            </div>
+            <p class="info-card-body">Deep learning model optimized for real-time recognition.</p>
+          </div>
+
+          <div class="info-card">
+            <div class="info-card-header">
+              <div class="info-card-icon">🎯</div>
+              <h3 class="info-card-title">Robust</h3>
+            </div>
+            <p class="info-card-body">Tested against lighting, angles, and mask variations.</p>
+          </div>
+
+          <div class="info-card">
+            <div class="info-card-header">
+              <div class="info-card-icon">📊</div>
+              <h3 class="info-card-title">High Quality</h3>
+            </div>
+            <p class="info-card-body">Trained on 30 diverse identities with augmentation techniques.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="/static/app.js"></script>
+</body>
+</html>
