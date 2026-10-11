@@ -1,0 +1,250 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Upload Recognition - SafeSynth-FR</title>
+  <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+  <!-- Fixed Navbar -->
+  <nav class="navbar">
+    <a href="/dashboard" class="nav-brand">
+      <div class="nav-brand-icon">🔬</div>
+      SafeSynth-FR
+    </a>
+    
+    <ul class="nav-links">
+      <li><a href="/dashboard" class="nav-link">Dashboard</a></li>
+      <li><a href="/face-recognition" class="nav-link active">Upload</a></li>
+      <li><a href="/live-recognition" class="nav-link">Live Camera</a></li>
+      <li><a href="/about" class="nav-link">About</a></li>
+    </ul>
+
+    <div class="navbar-user">
+      <div class="user-name">👋 Hello,  {{ name }}</div>
+      <a href="/logout" class="logout-btn">Logout</a>
+    </div>
+  </nav>
+
+  <!-- Main Container -->
+  <div class="main-container">
+    <!-- Page Header -->
+    <div class="page-header">
+      <h1 class="page-header-title">Upload Recognition</h1>
+      <p class="page-header-subtitle">Upload an image to identify the person</p>
+    </div>
+
+    <!-- Page Content - Two Column Layout -->
+    <div class="page-content">
+      <div class="demo-layout">
+        <!-- LEFT PANEL: Upload Input -->
+        <div class="demo-panel demo-panel-left">
+          <div class="card">
+            <h2 style="font-size: 16px; font-weight: 700; margin-bottom: var(--spacing-lg);">Select Image</h2>
+            
+            <!-- Upload Area -->
+            <div class="upload-area" id="uploadArea">
+              <div class="upload-icon">📤</div>
+              <div class="upload-text">Drag & drop image here</div>
+              <div class="upload-subtext">or click to browse</div>
+              <input type="file" id="fileInput" style="display: none;" accept=".jpg,.jpeg,.png,.bmp,.webp,image/jpeg,image/png,image/bmp,image/webp" capture="user">
+            </div>
+
+            <!-- Image Preview -->
+            <div id="previewDiv" style="margin-top: var(--spacing-lg); display: none;">
+              <div style="font-size: 12px; font-weight: 600; color: var(--text-secondary); margin-bottom: var(--spacing-sm);">PREVIEW</div>
+              <img id="preview" class="upload-preview-image" alt="Preview">
+              <div style="font-size: 12px; color: var(--text-secondary); margin-top: var(--spacing-md); word-break: break-all;">
+                <strong>File:</strong> <span id="fileName"></span>
+              </div>
+            </div>
+
+            <!-- Analyze Button -->
+            <button id="analyzeBtn" class="btn btn-primary btn-lg btn-full" style="margin-top: var(--spacing-lg); display: none;">
+              Analyze Image
+            </button>
+
+            <!-- Tips -->
+            <div class="tips-section">
+              <div class="tips-title">💡 Tips</div>
+              <ul class="tips-list">
+                <li>Use clear, well-lit photos</li>
+                <li>Face should be centered and visible</li>
+                <li>Avoid extreme angles or blurry images</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <!-- RIGHT PANEL: Recognition Result -->
+        <div class="demo-panel demo-panel-right">
+          <div id="resultDiv" style="display: none;">
+            <div class="result-card" id="resultCard">
+              <div id="statusBadge" style="align-self: flex-start; margin-bottom: var(--spacing-lg);"></div>
+              
+              <div style="flex: 1; display: flex; flex-direction: column; width: 100%;">
+                <div id="resultLabel" class="result-label">Analyzing...</div>
+                <div id="confidencePercentage" class="result-confidence">-</div>
+              </div>
+
+              <div class="result-metadata">
+                <div class="metadata-row">
+                  <span class="metadata-label">Predicted Label</span>
+                  <span class="metadata-value" id="metaPredicted">-</span>
+                </div>
+                <div class="metadata-row">
+                  <span class="metadata-label">Confidence</span>
+                  <span class="metadata-value" id="metaConfidence">-</span>
+                </div>
+                <div class="metadata-row">
+                  <span class="metadata-label">Detection Status</span>
+                  <span class="metadata-value" id="metaStatus">-</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Empty State -->
+          <div id="emptyState" class="card" style="display: flex; align-items: center; justify-content: center; min-height: 300px; text-align: center;">
+            <div>
+              <div style="font-size: 48px; margin-bottom: var(--spacing-lg);">📊</div>
+              <p style="color: var(--text-secondary); font-size: 14px;">Upload an image to see recognition results here</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="/static/webcam.js"></script>
+  <script>
+    const uploadArea = document.getElementById("uploadArea");
+    const fileInput = document.getElementById("fileInput");
+    const previewDiv = document.getElementById("previewDiv");
+    const preview = document.getElementById("preview");
+    const analyzeBtn = document.getElementById("analyzeBtn");
+    const resultDiv = document.getElementById("resultDiv");
+    const emptyState = document.getElementById("emptyState");
+    const fileName = document.getElementById("fileName");
+    const allowedExtensions = [".jpg", ".jpeg", ".png", ".bmp", ".webp"];
+    let selectedFile = null;
+
+    uploadArea.addEventListener("click", () => fileInput.click());
+    uploadArea.addEventListener("dragover", (e) => { e.preventDefault(); uploadArea.classList.add("dragover"); });
+    uploadArea.addEventListener("dragleave", () => uploadArea.classList.remove("dragover"));
+    uploadArea.addEventListener("drop", (e) => { e.preventDefault(); uploadArea.classList.remove("dragover"); handleFiles(e.dataTransfer.files); });
+    fileInput.addEventListener("change", (e) => handleFiles(e.target.files));
+
+    function resetUploadState() {
+      selectedFile = null;
+      fileInput.value = "";
+      preview.removeAttribute("src");
+      previewDiv.style.display = "none";
+      analyzeBtn.style.display = "none";
+      uploadArea.style.display = "block";
+      if (fileName) fileName.textContent = "";
+    }
+
+    function isSupportedImageFile(file) {
+      const lowerName = (file.name || "").toLowerCase();
+      return allowedExtensions.some((ext) => lowerName.endsWith(ext));
+    }
+
+    function handleFiles(files) {
+      if (files.length === 0) return;
+      const file = files[0];
+
+      if (!isSupportedImageFile(file)) {
+        resetUploadState();
+        showError("Unsupported file type. Please upload JPG, JPEG, PNG, BMP, or WEBP.");
+        return;
+      }
+
+      selectedFile = file;
+      const reader = new FileReader();
+      reader.onload = (e) => {
+        preview.src = e.target.result;
+        fileName.textContent = file.name;
+        previewDiv.style.display = "block";
+        analyzeBtn.style.display = "block";
+        uploadArea.style.display = "none";
+      };
+      reader.readAsDataURL(file);
+    }
+
+    analyzeBtn.addEventListener("click", async () => {
+      if (!selectedFile) {
+        showError("Please select a supported image file first.");
+        return;
+      }
+
+      analyzeBtn.disabled = true;
+      resultDiv.style.display = "block";
+      emptyState.style.display = "none";
+
+      const formData = new FormData();
+      formData.append("image", selectedFile, selectedFile.name);
+
+      try {
+        const response = await fetch("/predict", { method: "POST", body: formData });
+        const data = await response.json();
+
+        if (data.ok) {
+          displayResult(data);
+        } else {
+          showError(data.error || "Recognition failed");
+        }
+      } catch (error) {
+        showError("An error occurred");
+      } finally {
+        analyzeBtn.disabled = false;
+      }
+    });
+
+    function displayResult(data) {
+      const label = data.label;
+      const confidence = (data.confidence * 100).toFixed(1);
+      const resultLabel = document.getElementById("resultLabel");
+      const confidencePercentage = document.getElementById("confidencePercentage");
+      const statusBadge = document.getElementById("statusBadge");
+
+      resultLabel.textContent = label;
+      confidencePercentage.textContent = confidence + "%";
+
+      if (label === "No Face") {
+        resultLabel.className = "result-label unknown";
+        resultLabel.textContent = "No Face Detected";
+        confidencePercentage.textContent = "-";
+        statusBadge.innerHTML = '<div class="badge badge-danger">No Face Detected</div>';
+      } else if (label === "Uncertain") {
+        resultLabel.className = "result-label unknown";
+        resultLabel.textContent = "Uncertain Match";
+        statusBadge.innerHTML = '<div class="badge badge-warning">Uncertain Result</div>';
+      } else if (label === "Unknown") {
+        resultLabel.className = "result-label unknown";
+        statusBadge.innerHTML = data.detection_status === "multiple_faces"
+          ? '<div class="badge badge-warning">Multiple Faces Detected</div>'
+          : '<div class="badge badge-danger">Unknown Person</div>';
+      } else if (data.detection_status === "multiple_faces") {
+        resultLabel.className = "result-label unknown";
+        statusBadge.innerHTML = '<div class="badge badge-warning">Multiple Faces Detected</div>';
+      } else {
+        resultLabel.className = "result-label recognized";
+        statusBadge.innerHTML = '<div class="badge badge-success">Recognized</div>';
+      }
+
+      document.getElementById("metaPredicted").textContent = data.raw_label || "-";
+      document.getElementById("metaConfidence").textContent = label === "No Face" ? "-" : confidence + "%";
+      document.getElementById("metaStatus").textContent = data.detection_status;
+    }
+
+    function showError(message) {
+      resultDiv.style.display = "block";
+      emptyState.style.display = "none";
+      const resultCard = document.getElementById("resultCard");
+      resultCard.innerHTML = `<div style="text-align: center; color: var(--danger-color);"><div style="font-size: 32px; margin-bottom: var(--spacing-lg);">⚠️</div><div>${message}</div></div>`;
+    }
+  </script>
+</body>
+</html>

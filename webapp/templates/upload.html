@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Face Recognition - SafeSynth-FR</title>
+
+<link rel="stylesheet" href="/static/style.css">
+
+</head>
+
+<body>
+
+<nav class="navbar">
+
+<div class="nav-container">
+
+<div class="nav-logo">
+<span class="logo-text-nav">SafeSynth-FR</span>
+</div>
+
+<ul class="nav-menu">
+<li><a href="/dashboard" class="nav-link">Home</a></li>
+<li><a href="/face-recognition" class="nav-link active">Upload</a></li>
+<li><a href="/live-recognition" class="nav-link">Webcam</a></li>
+<li><a href="/about" class="nav-link">About</a></li>
+<li><a href="/logout" class="logout-btn">Logout</a></li>
+</ul>
+
+</div>
+</nav>
+
+<header class="page-header">
+<div class="header-content">
+<h1>Face Recognition</h1>
+<p>Upload an image to identify the person</p>
+</div>
+</header>
+
+<main class="main-content">
+
+<div class="upload-page-layout">
+
+<div class="upload-column">
+
+<div class="panel-card">
+
+<h2>Upload Image</h2>
+
+<div class="upload-controls">
+
+<input id="file" type="file" accept="image/*">
+
+<button id="btn" class="btn btn-primary btn-full">Recognize Face</button>
+
+<div id="status" class="status-message"></div>
+
+</div>
+
+<div class="image-preview-wrapper">
+
+<div class="preview-container">
+
+<img id="preview" class="preview-image">
+
+<div class="preview-placeholder">
+No Image Selected
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+<div class="result-column">
+
+<div class="panel-card result-info-card">
+
+<h2>Recognition Result</h2>
+
+<div class="result-content">
+
+<div class="result-item">
+
+<span class="result-label">Person</span>
+
+<div id="label" class="result-value">-</div>
+
+</div>
+
+<div class="result-item">
+
+<span class="result-label">Confidence</span>
+
+<div class="progress-bar">
+<div id="progressFill" class="progress-fill"></div>
+</div>
+
+<div id="conf" class="confidence-text">-</div>
+
+</div>
+
+<div id="note" class="result-note"></div>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</main>
+
+<footer class="footer">
+<p>SafeSynth-FR • Facial Recognition with Synthetic Data</p>
+</footer>
+
+<script src="/static/app.js"></script>
+
+</body>
+</html>
