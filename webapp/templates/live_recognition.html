@@ -1,0 +1,115 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Live Webcam - SafeSynth-FR</title>
+  <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+  <nav class="navbar">
+    <a href="/dashboard" class="nav-brand">
+      <div class="nav-brand-icon">🔬</div>
+      SafeSynth-FR
+    </a>
+
+    <ul class="nav-links">
+      <li><a href="/dashboard" class="nav-link">Dashboard</a></li>
+      <li><a href="/face-recognition" class="nav-link">Upload</a></li>
+      <li><a href="/live-recognition" class="nav-link active">Live Camera</a></li>
+      <li><a href="/about" class="nav-link">About</a></li>
+    </ul>
+
+    <div class="navbar-user">
+      <div class="user-name">👋 Hello, {{ name }}</div>
+      <a href="/logout" class="logout-btn">Logout</a>
+    </div>
+  </nav>
+
+  <div class="main-container">
+    <div class="page-header">
+      <h1 class="page-header-title">Live Webcam Recognition</h1>
+      <p class="page-header-subtitle">Real-time face recognition from your camera</p>
+    </div>
+
+    <div class="page-content">
+      <div class="demo-layout">
+        <div class="demo-panel demo-panel-left">
+          <div class="card">
+            <h2 style="font-size: 16px; font-weight: 700; margin-bottom: var(--spacing-lg);">Camera</h2>
+
+            <div class="webcam-container">
+              <video id="video" class="webcam-video" autoplay playsinline muted></video>
+              <canvas id="canvas" width="640" height="480" style="display:none;"></canvas>
+              <canvas id="overlay" width="640" height="480"></canvas>
+
+              <div class="webcam-status" id="camStatus">
+                <span>Camera is off</span>
+              </div>
+            </div>
+
+            <div class="webcam-controls">
+              <button id="startCam" class="btn btn-primary">▶ Start Camera</button>
+              <button id="stopCam" class="btn btn-danger" disabled>⏹ Stop Camera</button>
+              <button id="startLive" class="btn btn-primary" disabled>🔍 Start Recognition</button>
+              <button id="stopLive" class="btn btn-secondary" disabled>⏸ Pause</button>
+            </div>
+
+            <div class="interval-row">
+              <label for="intervalMs">Interval (ms)</label>
+              <input id="intervalMs" type="number" value="700" min="200" step="100">
+            </div>
+
+            <div class="tips-section">
+              <div class="tips-title">💡 Tips</div>
+              <ul class="tips-list">
+                <li>Position face in the center of the frame</li>
+                <li>Ensure adequate lighting</li>
+                <li>Keep one main face visible</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <div class="demo-panel demo-panel-right">
+          <div class="result-card">
+            <div style="align-self: flex-start; margin-bottom: var(--spacing-lg);">
+              <div class="badge badge-info">Live Result</div>
+            </div>
+
+            <div style="flex: 1; display: flex; flex-direction: column; width: 100%;">
+              <div id="label" class="result-label" style="color: var(--text-secondary);">-</div>
+              <div id="conf" class="result-confidence">-</div>
+            </div>
+
+            <div class="result-metadata">
+              <div class="metadata-row">
+                <span class="metadata-label">Predicted Label</span>
+                <span class="metadata-value" id="liveMetaPredicted">-</span>
+              </div>
+              <div class="metadata-row">
+                <span class="metadata-label">Confidence</span>
+                <span class="metadata-value" id="liveMetaConfidence">-</span>
+              </div>
+              <div class="metadata-row">
+                <span class="metadata-label">Detection Status</span>
+                <span class="metadata-value" id="detectionStatus">Waiting for camera</span>
+              </div>
+            </div>
+
+            <div class="progress-bar" style="width: 100%; margin-top: var(--spacing-lg);">
+              <div id="progressFill" class="progress-fill"></div>
+            </div>
+
+            <div id="note" class="result-note" style="margin-top: var(--spacing-lg);">
+              Start the camera to begin recognition.
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="/static/webcam.js"></script>
+</body>
+</html>

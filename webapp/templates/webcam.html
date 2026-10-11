@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Live Recognition - SafeSynth-FR</title>
+  <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+
+  <nav class="navbar">
+    <div class="nav-container">
+      <div class="nav-logo">
+        <span class="logo-text-nav">SafeSynth-FR</span>
+      </div>
+
+      <ul class="nav-menu">
+        <li><a href="/dashboard" class="nav-link">Home</a></li>
+        <li><a href="/face-recognition" class="nav-link">Upload</a></li>
+        <li><a href="/live-recognition" class="nav-link active">Webcam</a></li>
+        <li><a href="/about" class="nav-link">About</a></li>
+        <li><a href="/logout" class="nav-link logout-btn">Logout</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <header class="page-header">
+    <div class="header-content">
+      <h1>Live Face Recognition</h1>
+      <p>Real-time face recognition using your webcam</p>
+    </div>
+  </header>
+
+  <main class="main-content">
+    <div class="three-panel-layout">
+
+      <section class="panel webcam-panel">
+        <div class="panel-card">
+          <h2>Webcam</h2>
+
+          <div class="video-container webcam-container">
+            <video id="video" autoplay playsinline muted></video>
+            <canvas id="canvas" width="640" height="480" style="display:none;"></canvas>
+            <canvas id="overlay" width="640" height="480"></canvas>
+          </div>
+
+          <div class="webcam-controls">
+            <button id="startCam" class="btn btn-primary" type="button">Start Camera</button>
+            <button id="stopCam" class="btn btn-secondary" type="button" disabled>Stop Camera</button>
+            <button id="startLive" class="btn btn-primary" type="button" disabled>Start Recognition</button>
+            <button id="stopLive" class="btn btn-secondary" type="button" disabled>Pause</button>
+          </div>
+
+          <div class="interval-row">
+            <label for="intervalMs">Interval (ms)</label>
+            <input id="intervalMs" type="number" value="700" min="200" step="100">
+          </div>
+
+          <div id="camStatus" class="status-message">Camera is off</div>
+        </div>
+      </section>
+
+      <section class="panel settings-panel">
+        <div class="panel-card">
+          <h2>Settings</h2>
+
+          <div class="settings-item">
+            <label for="autoDetect">Auto Detection</label>
+            <input type="checkbox" id="autoDetect" checked>
+          </div>
+
+          <div class="settings-item">
+            <label for="showConf">Show Confidence</label>
+            <input type="checkbox" id="showConf" checked>
+          </div>
+
+          <div class="settings-item">
+            <label for="resolution">Resolution</label>
+            <select id="resolution">
+              <option value="low">Low (Fast)</option>
+              <option value="medium" selected>Medium</option>
+              <option value="high">High (Accurate)</option>
+            </select>
+          </div>
+        </div>
+      </section>
+
+      <section class="panel result-panel">
+        <div class="panel-card result-card">
+          <h2>Recognition Result</h2>
+
+          <div class="result-box">
+            <div class="result-row">
+              <span class="result-title">Person</span>
+              <div id="label" class="result-value">-</div>
+            </div>
+
+            <div class="result-row">
+              <span class="result-title">Confidence</span>
+              <div class="progress-bar">
+                <div id="progressFill" class="progress-fill"></div>
+              </div>
+              <div id="conf" class="confidence-text">-</div>
+            </div>
+
+            <div class="result-row">
+              <span class="result-title">Status</span>
+              <div id="detectionStatus" class="status-text">Waiting for camera</div>
+            </div>
+
+            <div id="note" class="result-note">Start the camera to begin live recognition.</div>
+          </div>
+        </div>
+      </section>
+
+    </div>
+  </main>
+
+  <footer class="footer">
+    <p>SafeSynth-FR • Real-time Face Recognition</p>
+  </footer>
+
+  <script src="/static/webcam.js"></script>
+</body>
+</html>
