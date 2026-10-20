@@ -1,0 +1,10 @@
+SafeSynth-FR Masked vs Unmasked Evaluation
+----------------------------------------
+Total test images: 60
+Classes: 30
+
+Unmasked accuracy: 0.7500
+Masked accuracy:   0.7000
+Accuracy drop:     0.0500
+
+Masked samples saved to: results\masked_samples
