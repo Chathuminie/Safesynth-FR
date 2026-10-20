@@ -1,0 +1,15 @@
+SafeSynth-FR Angle Robustness Evaluation
+---------------------------------------
+Total test images: 60
+Classes: 30
+
+Baseline accuracy:   0.7167
+Rotation +10°:       0.7000
+Rotation -10°:       0.6667
+Rotation +20°:       0.6167
+Rotation -20°:       0.5833
+
+Drop at +10°:        0.0167
+Drop at -10°:        0.0500
+Drop at +20°:        0.1000
+Drop at -20°:        0.1333

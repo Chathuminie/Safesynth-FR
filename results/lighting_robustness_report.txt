@@ -1,0 +1,15 @@
+SafeSynth-FR Lighting Robustness Evaluation
+------------------------------------------
+Total test images: 60
+Classes: 30
+
+Baseline accuracy:      0.7167
+Dark lighting accuracy: 0.6833
+Bright lighting accuracy: 0.7833
+Low contrast accuracy:  0.6667
+Outdoor-like accuracy:  0.7167
+
+Drop under dark lighting:   0.0333
+Drop under bright lighting: -0.0667
+Drop under low contrast:    0.0500
+Drop under outdoor-like:    0.0000
