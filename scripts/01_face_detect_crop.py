@@ -161,4 +161,3 @@ print("Saved:", saved)
 print("Detections used:", used_det)
 print("Fallback center-crops:", used_fallback)
 print("Output folder:", OUT_DIR)
-```
