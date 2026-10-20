@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login - SafeSynth-FR</title>
+  <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+  <div class="auth-container">
+    <div class="auth-box">
+      <div class="auth-header">
+        <div class="auth-logo">🔐</div>
+        <h1 class="auth-title">SafeSynth-FR</h1>
+        <p class="auth-subtitle">Synthetic Face Recognition with Privacy</p>
+      </div>
+
+      <div id="errorMessage" class="message error hidden"></div>
+
+      <form class="auth-form" id="loginForm">
+        <div class="form-group">
+          <label for="email">Email Address</label>
+          <input type="email" id="email" name="email" placeholder="your@email.com" required>
+        </div>
+
+        <div class="form-group">
+          <label for="password">Password</label>
+          <input type="password" id="password" name="password" placeholder="••••••••" required>
+        </div>
+
+        <button type="submit" class="btn btn-primary btn-lg btn-full">Sign In</button>
+      </form>
+
+      <div class="auth-switch">Don't have an account? <a href="/register">Create one</a></div>
+
+    </div>
+  </div>
+
+  <script src="/static/app.js"></script>
+  <script>
+    document.getElementById('loginForm').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const email = document.getElementById('email').value;
+      const password = document.getElementById('password').value;
+      
+      try {
+        const response = await fetch('/login', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ email, password })
+        });
+        
+        const data = await response.json();
+        if (data.ok) {
+          window.location.href = '/dashboard';
+        } else {
+          document.getElementById('errorMessage').textContent = data.error || 'Login failed';
+          document.getElementById('errorMessage').classList.remove('hidden');
+        }
+      } catch (error) {
+        document.getElementById('errorMessage').textContent = 'An error occurred';
+        document.getElementById('errorMessage').classList.remove('hidden');
+      }
+    });
+  </script>
+</body>
+</html>
